@@ -18,7 +18,6 @@ public class Singleton {
     
 
     public static void main(String[] args) {
-
         Singleton s2 = Singleton.getInstance();
         Singleton s3 = Singleton.getInstance();
         System.out.println("Hashcode of s2: "+s2.hashCode());

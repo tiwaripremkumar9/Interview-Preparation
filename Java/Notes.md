@@ -267,6 +267,100 @@ Interface
 * statics can be used in abstract class.
 * object can't be create of Abstract class.
 
+=============================================================================================================
+
+
+###### Serialization and Deserialization in Java
+
+* The process converting a java object into byte stream is called Serialization,
+while the reverse process i.e converting a byte stream into a java object is called Deserialization.
+
+* after serialization, the byte stream created is platform independent, hence a serialized byte stream created 
+on one platform can be Deserialized on another platform.
+
+* to make a java object Serializable, we must implement the class with Serializable interface.
+
+ObjectOutputStream.writeObject() -> for serializing an object.
+ObjectInputStream.readObject() -> for deserializing ab object.
+
+Serializable is a Marker interface (having no data members or method), it is used to mark some
+capilities for the implementing classes.
+
+Advantages of Serialization 
+
+* To save/persist state of an object. 
+* To travel an object across a network.
+
+Points to remember 
+
+1. If a parent class has implemented Serializable interface then child class doesn’t need to implement it but vice-versa is not true.
+2. Only non-static data members are saved via Serialization process. 
+3. Static data members and transient data members are not saved via Serialization process. So, if you don’t want to save value of a non-static data member then make it transient. 
+4. Constructor of object is never called when an object is deserialized.
+
+* In case of transient variables:- A variable defined with transient keyword is not serialized during serialization process.This variable will be initialized with default value during deserialization. (e.g: for objects it is null, for int it is 0). 
+
+* In case of static Variables:- A variable defined with static keyword is not serialized during serialization process.This variable will be loaded with current value defined in the class during deserialization.
+
+* final variables will be participating in serialization, hence declaring a transient variable final will be
+of no use.
+
+# Object Graph in Serialization
+
+for instance, if we Serialize an object which contains reference to another object/objects then will
+they also get Serialized ? 
+
+YES. They will get serialized.
+
+an Object Graph is the set of Object which will get Serialized as part of parent object serialization.
+In other words, we can say that when we serialize any object and if it contains any other object reference then JVM serializes the object and as well as its object references.
+
+###### Shallow Copy & Deep Copy
+
+* Shallow Copy: 
+
+- when we want a copy an object such that changes done in one object
+should reflect in other object as well, we do shallow copy.
+- in shallow copy new memory is never allocated the new entity just startes pointing towards the reference of the original object.
+- because of the reason, shallow copy is faster.
+- default implmentation of clone() method follows shallow copy.
+
+
+class ABC {
+    int x = 100;
+}
+
+class ShallowCopyExample{
+    public static void main(String[] args) {
+        ABC obj1 = new ABC();
+        System.out.println(obj1.x);
+        ABC obj2 = obj1; //this copies the reference, not the value
+        // doing change in copied object or the original object,
+        // will  be visible/affect in both the objects.
+        obj2.x = 200;
+        System.out.println(obj1.x);
+
+        obj1.x = 300;
+        System.out.println(obj2.x);
+
+    }
+}
+
+
+Output:
+
+100
+200
+300
+
+
+
+
+
+
+
+
+
 
 
 
